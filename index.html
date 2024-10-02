@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Family Feud Game</title>
     <link rel="stylesheet" href="style.css">
+    <script src="game.js" defer></script>
 </head>
 <body>
     <nav>
@@ -46,14 +47,14 @@
         <h3>Game Over!</h3>
     </footer>
     
-    <button>Start Game</button>
+    <button id="start-game" onclick="startCountDown(500)">Start Game</button>
     
     <div id="results"></div>
     <audio src=""></audio>
 
     <div class="team-controls">
-        <button>Pass</button>
-        <button>Play</button>
+        <button id="passBtn">Pass</button>
+        <button id="playBtn">Play</button>
     </div>
 
     <form action="">
@@ -62,7 +63,7 @@
 
     </form>
     <img src="" alt="Family Feud-style Buzzer">
-    <div hidden> Countdown</div>
+    <div id="countdown-timer" hidden> Countdown</div>
     <progress value="30" max="100"></progress>
 </body>
 </html>
