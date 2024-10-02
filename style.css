@@ -1,0 +1,49 @@
+* {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+#game-header {
+    background-color: bisque;
+    text-align: center;
+}
+
+#game-container {
+    padding: 2rem;
+    max-width: 50rem;
+    margin: auto;
+    height: 90vh;
+}
+
+.game-controls {
+    display: flex;
+}
+
+.nav-link:hover {
+    color: blueviolet;
+}
+
+.game-button:hover {
+    background-color: cadetblue;
+}
+
+.score-table {
+    box-shadow: 0.5rem 0.5rem 0.5rem rgb(46, 45, 45);
+}
+
+#answer-form {
+    display: flex;
+}
+
+.buzzer-img {
+    position: relative;
+}
+
+#results {
+    background-color: azure;
+}
+
+.headings {
+    font-weight: 400;
+    text-transform: capitalize;
+}
