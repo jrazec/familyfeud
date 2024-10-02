@@ -26,12 +26,26 @@
           </div>
         </div>
       </nav>
-    <header class =>
-        <h1>Family Feud Game</h1>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                </div>
+                <div class="col-6">
+                  <h1>Family Feud Game</h1>
+                </div>
+                <div class="col">
+                </div>
+            
+        </div>
+        
     </header>
     <section class>
-        There are two families, each with five family members on their team. They have to guess the answers to a survey question asked to 100 people to win points for their team. The answers are seen on a huge survey board.
-        <div id="game-container" class="">
+        <div class="container">
+            There are two families, each with five family members on their team. They have to guess the answers to a survey question asked to 100 people to win points for their team. The answers are seen on a huge survey board.
+        </div>
+        <div class="container">
+             <div id="game-container">
             <h2>Game Setup</h2>
             <ul>
                 <li class="answer">placeholder1</li>
@@ -41,7 +55,7 @@
             </ul>
             <form action="POST" id="answer-form">
                 <input type="text" name="userAnswer">
-                <input type="submit" value="Submit">
+                <input type="submit" value="Submit" class="btn btn-primary">
             </form>
             <!-- <table class="score-table table">
                 <thead class=""></thead>
@@ -78,13 +92,15 @@
                 </tbody>
               </table>
         </div>
+        </div>
+       
     </section>
 
     <footer>
         <h3>Game Over!</h3>
     </footer>
     
-    <button id="start-game" onclick="startCountDown(500)">Start Game</button>
+    <button id="start-game" class="btn btn-primary" onclick="startCountDown(500)">Start Game</button>
     
     <div id="results"></div>
     <audio src=""></audio>
