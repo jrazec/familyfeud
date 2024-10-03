@@ -7,9 +7,10 @@ const countDownTimer = document.querySelector('#countdown-timer')
 const passBtn = document.getElementById('passBtn');
 const playBtn = document.getElementById('playBtn');
 
+const container = document.querySelector('.container');
 
 startGameBtn.addEventListener('click',()=>{
-
+    container.hidden = false;
 });
 
 passBtn.addEventListener('click',()=> {
