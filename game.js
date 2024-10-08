@@ -6,6 +6,7 @@ let currentTeam = 1; // Start with Team 1
 let team1AnswerPoints = 0;
 let team2AnswerPoints = 0;
 let answersAttempted = 0; // Track the number of answers attempted in the round
+let interval;
 
 // Sample questions with answers and points
 let questions = [
@@ -43,6 +44,24 @@ function startGame() {
 function loadQuestion() {
     let currentQuestion = questions[currentRound];
     document.querySelector('#game-container h2').textContent = currentQuestion.question;
+    startTimer();
+}
+
+function startTimer() {
+    let countdown = 30;
+    const timer = document.getElementById('countdown-timer');
+    timer.hidden = false;
+    timer.textContent = countdown;
+
+    interval = setInterval(() => {
+        countdown--;
+        timer.textContent = countdown;
+        if (countdown <= 0) {
+            clearInterval(interval);
+            alert('Time is up!');
+            switchTeam();
+        }
+    }, 1000);
 }
 
 // Handle the form submission to check the answer
@@ -54,6 +73,8 @@ document.getElementById('answer-form').addEventListener('submit', function (even
 
 // Check if the submitted answer is correct
 function checkAnswer(userAnswer) {
+    clearInterval(interval);
+
     let currentAnswers = questions[currentRound].answers;
 
     if (userAnswer in currentAnswers) {
