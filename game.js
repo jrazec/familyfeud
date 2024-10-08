@@ -36,6 +36,7 @@ let questions = [
 function startGame() {
     document.querySelector('#game-container').style.display = 'block';
     document.getElementById('start-game').style.display = 'none';
+    document.querySelector('.lead').style.display = 'none';
     alert(`Team 1 starts the game!`);
     loadQuestion();
 }
@@ -48,7 +49,7 @@ function loadQuestion() {
 }
 
 function startTimer() {
-    let countdown = 30;
+    let countdown = 11;
     const timer = document.getElementById('countdown-timer');
     timer.hidden = false;
     timer.textContent = countdown;
@@ -59,7 +60,8 @@ function startTimer() {
         if (countdown <= 0) {
             clearInterval(interval);
             alert('Time is up!');
-            switchTeam();
+            let userAnswer = document.querySelector('[name="userAnswer"]').value.toLowerCase();
+            checkAnswer(userAnswer)
         }
     }, 1000);
 }
@@ -70,6 +72,88 @@ document.getElementById('answer-form').addEventListener('submit', function (even
     let userAnswer = document.querySelector('[name="userAnswer"]').value.toLowerCase();
     checkAnswer(userAnswer);
 });
+
+// Handle the form submission to check the answer
+document.getElementById('team-answer-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    let userAnswer = document.querySelector('[name="teamUserAnswer"]').value.toLowerCase();
+    checkTeamAnswer(userAnswer);
+});
+
+// Check if the submitted answer is correct
+function checkTeamAnswer(userAnswer) {
+    clearInterval(interval);
+
+    let currentAnswers = questions[currentRound].answers;
+
+    if (userAnswer in currentAnswers) {
+        let points = currentAnswers[userAnswer];
+        alert(`Correct answer! You've earned ${points} points.`);
+        guessedAnswers.push(userAnswer); // Add correct answer to guessed list
+
+        // Update team score
+        if (currentTeam === 1) {
+            updateScore(1, points);
+        } else {
+            updateScore(2, points);
+        }
+    } else {
+        lives--;
+        alert(`Wrong answer! ${lives} lives left.`);
+    }
+
+    // Check if game round is over
+    if (lives === 0) {
+        alert(`Team ${currentTeam} has 3 wrong answers! Opponent's chance to steal.`);
+        stealTeam();
+    } else if (Object.keys(currentAnswers).length === guessedAnswers.length) {
+        alert(`Team ${currentTeam} got all the answers! They win this round!`);
+        resetForNextRound();
+    } else {
+        startTimer(); // Restart timer for next answer
+    }
+
+    document.querySelector('[name="userAnswer"]').value = ''; // Reset the input field
+}
+
+// Update the team's score
+function updateScore(team, points) {
+    if (team === 1) {
+        team1Score += points;
+        document.querySelector('.score-table tbody tr:nth-child(1) td:nth-child(1)').textContent = team1Score;
+    } else {
+        team2Score += points;
+        document.querySelector('.score-table tbody tr:nth-child(1) td:nth-child(2)').textContent = team2Score;
+    }
+}
+
+// Switch to the other team for a chance to steal
+function stealTeam() {
+    currentTeam = currentTeam === 1 ? 2 : 1;
+    lives = 3; // Reset lives for the new team
+    alert(`It's now Team ${currentTeam}'s chance to steal!`);
+    guessedAnswers = []; // Reset guessed answers
+    loadQuestion();
+}
+
+// Resetting for next round or continue
+function resetForNextRound() {
+    currentRound++;
+    answersAttempted = 0;
+    guessedAnswers = [];
+    if (currentRound < questions.length) {
+        loadQuestion();
+    } else {
+        endGame();
+    }
+}
+
+// End game and declare winner
+function endGame() {
+    alert(`Game Over! Team 1: ${team1Score} points, Team 2: ${team2Score} points.`);
+    document.querySelector('#game-container').style.display = 'none';
+}
+
 
 // Check if the submitted answer is correct
 function checkAnswer(userAnswer) {
@@ -102,6 +186,7 @@ function checkAnswer(userAnswer) {
     }
 
     document.querySelector('[name="userAnswer"]').value = ''; // Reset the input field
+    startTimer();
 }
 
 // Update the team's score
@@ -138,18 +223,22 @@ function determineHigherScore() {
 
 // Display "Pass or Play" options
 function displayPassOrPlay() {
+    document.querySelector('#answer-form').style.display = 'none';
+    document.querySelector('.score-table').style.display = 'none';
     document.querySelector('.team-controls').style.display = 'block';
+    document.getElementById('countdown-timer').style.display = 'none';
+    document.querySelector('#game-container h2').textContent = "Choose Between:";
     document.getElementById('passBtn').addEventListener('click', function () {
         currentTeam = currentTeam === 1 ? 2 : 1; // Switch to the other team
         alert(`Team ${currentTeam} will play!`);
         document.querySelector('.team-controls').style.display = 'none';
-        playRound();
+        startRound();
     });
 
     document.getElementById('playBtn').addEventListener('click', function () {
         alert(`Team ${currentTeam} has chosen to play!`);
         document.querySelector('.team-controls').style.display = 'none';
-        playRound();
+        startRound();
     });
 }
 
@@ -180,3 +269,83 @@ function endGame() {
     alert(`Game Over! Team 1: ${team1Score} points, Team 2: ${team2Score} points.`);
     document.querySelector('#game-container').style.display = 'none';
 }
+
+let leaderPop = false;
+const leaderBoard = document.querySelector('#results')
+document.querySelector('#pop-up-leaderboard').addEventListener('click',()=>{
+    if(leaderPop===true) {
+        leaderPop = false;
+        leaderBoard.style.visibility = "hidden";
+        return;
+    }
+    leaderBoard.style.visibility = "visible";
+    leaderPop = true;
+
+
+})
+
+function startRound() {
+    currentRound = Math.round(Math.random() * questions.length);
+    document.querySelector('#answer-form').style.display = 'block';
+    document.querySelector('#game-container h2').textContent = `${questions[currentRound].question}`;
+    
+    document.getElementById('answer-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        let answer = document.querySelector('[name="userAnswer"]').value.toLowerCase();
+        let totalAnswers = questions[currentRound].answers;
+        
+        if (totalAnswers.includes(answer)) {
+            alert("Correct answer!");
+            guessedAnswers.push(answer);
+            score += 10; // Assign points for each correct answer
+        } else {
+            lives--;
+            alert(`Wrong answer! ${lives} lives left.`);
+        }
+
+        document.getElementById('answerInput').value = ''; // Clear input field
+        
+        if (lives === 0) {
+            alert(`Team ${currentTeam} has 3 wrong answers! Opponent's chance to steal.`);
+            switchTurn();
+        } else if (guessedAnswers.length === totalAnswers.length) {
+            alert(`Team ${currentTeam} got all the answers! They win with ${score} points!`);
+            resetGame();
+        }
+    });
+}
+
+function switchTurn() {
+    currentTeam = currentTeam === 1 ? 2 : 1; // Switch to opponent team
+    isOpponentTurn = true;
+    document.querySelector('#answer-form').style.display = 'none';
+    document.querySelector('#game-container h2').textContent = `Team ${currentTeam}, it's your chance to steal!`;
+
+    document.getElementById('stealBtn').style.display = 'block';
+    document.getElementById('stealBtn').addEventListener('click', function () {
+        let stealAnswer = document.getElementById('stealInput').value.trim();
+        
+        if (totalAnswers.includes(stealAnswer) && !guessedAnswers.includes(stealAnswer)) {
+            alert(`Team ${currentTeam} stole the points!`);
+            score = 0; // Reset the original team's score
+            resetGame();
+        } else {
+            alert(`Team ${currentTeam} failed to steal. Points remain with the original team.`);
+            resetGame();
+        }
+    });
+}
+
+function resetGame() {
+    // Reset lives, score, and the round for a new game
+    lives = 3;
+    score = 0;
+    guessedAnswers = [];
+    document.querySelector('#answer-form').style.display = 'none';
+    document.querySelector('#stealBtn').style.display = 'none';
+    document.querySelector('#game-container h2').textContent = `Game over!`;
+    // Optionally restart the game or show final score
+//     setTimeout(displayPassOrPlay, 2000); // Restart the game
+ }
+
+

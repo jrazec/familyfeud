@@ -47,3 +47,10 @@
     font-weight: 400;
     text-transform: capitalize;
 }
+
+#results {
+    position: absolute;
+    top: 8%;
+    left: 6%;
+    visibility: hidden;
+}

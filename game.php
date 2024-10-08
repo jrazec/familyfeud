@@ -33,7 +33,7 @@ include("data/query.php");
                         <a class="nav-link" href="#">Rules</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Leaderboard</a>
+                        <a class="nav-link" href="#" id="pop-up-leaderboard">Leaderboard</a>
                     </li>
                 </ul>
             </div>
@@ -57,8 +57,11 @@ include("data/query.php");
 
             <!-- Game Container -->
             <div id="game-container" style="display: none;">
-                <h2>Question</h2>
 
+                <!-- Countdown Timer -->
+                <div id="countdown-timer" hidden>30</div>
+                <h2>Question</h2>
+                
                 <!-- Answer List -->
                 <ul id="answer-list" class="list-unstyled my-4">
                     <li class="answer list-group-item"></li>
@@ -71,6 +74,12 @@ include("data/query.php");
                 <form id="answer-form" class="mb-4">
                     <input type="text" name="userAnswer" class="form-control" placeholder="Type your answer">
                     <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
+
+                <!-- Team Answer Form -->
+                <form id="team-answer-form" class="mb-4">
+                    <input type="text" name="team-userAnswer" class="form-control" placeholder="Type your answer">
+                    <input type="submit" value="team-submit" class="btn btn-secondary">
                 </form>
 
                 <!-- Team Score Table -->
@@ -95,14 +104,46 @@ include("data/query.php");
                     <button id="playBtn" class="btn btn-success">Play</button>
                 </div>
 
-                <!-- Results -->
-                <div id="results"></div>
+
             </div>
 
-            <!-- Countdown Timer -->
-            <div id="countdown-timer" hidden>30</div>
+
         </div>
     </section>
+
+    <!-- Results -->
+    <div id="results">
+      <table class="score-table table table-striped">
+          <thead class="table-dark">
+              <tr>
+                  <th scope="col">Team</th>
+                  <th scope="col">Score</th>
+                  <th scope="col">Finished</th>
+              </tr>
+          </thead>
+          <tbody>
+              
+
+
+
+            <?php
+              $score = getScores();
+              foreach ($score as $key => $value) {
+                echo "<tr>";
+                echo '<td>'. $value['team'].'</td>';
+                echo '<td>'. $value['score'].'</td>';
+                echo '<td>'. $value['time_finished'].'</td>';
+                echo "</tr>";
+              
+
+              }
+          
+
+            ?>
+            </tbody>
+      </table>
+    </div>
+
 
     <!-- Footer -->
     <footer class="text-center my-4">

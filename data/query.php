@@ -2,7 +2,7 @@
 function saveScore($team, $points) {
     global $conn;
 
-    $stmt = $conn->prepare("INSERT INTO scores (team, points) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO scores VALUES (?, ?, CURRENT_TIMESTAMP)");
     $stmt->bind_param("si", $team, $points);
     $stmt->execute();
     $stmt->close();
@@ -11,7 +11,7 @@ function saveScore($team, $points) {
 function getScores() {
     global $conn;
 
-    $sql = "SELECT team, points FROM scores ORDER BY points DESC";
+    $sql = "SELECT * FROM scores";
     $result = $conn->query($sql);
 
     $scores = array();
