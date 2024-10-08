@@ -26,6 +26,7 @@
           </div>
         </div>
       </nav>
+
     <header>
         <div class="container">
             <div class="row">
@@ -37,87 +38,67 @@
                 <div class="col">
                 </div>
             
-        </div>
-        
+        </div>  
     </header>
-    <section class>
-        <div class="container">
-            There are two families, each with five family members on their team. They have to guess the answers to a survey question asked to 100 people to win points for their team. The answers are seen on a huge survey board.
-        </div>
-        <button id="start-game" class="btn btn-primary" onclick="">Start Game</button>
-        <div class="container" >
-             <div id="game-container">
-            <h2>Game Setup</h2>
-            <ul>
-                <li class="answer">placeholder1</li>
-                <li class="answer">placeholder2</li>
-                <li class="answer">placeholder3</li>
-                <li class="answer">placeholder4</li>
-            </ul>
-            <form action="POST" id="answer-form">
-                <input type="text" name="userAnswer">
-                <input type="submit" value="Submit" class="btn btn-primary">
-            </form>
-            <!-- <table class="score-table table">
-                <thead class=""></thead>
-                <tr>
-                    <th>Team 1</th>
-                    <th>Team 2</th>
-                </tr>
-                <tr>
-                    <td>Score:</td>
-                    <td>Score:</td>
-                </tr>
-            </table> -->
-            <p>What is the lala?</p>
+
+    <section>
+        <div class="container text-center">
+            <p>There are two families, each with five family members on their team. They have to guess the answers to a survey question asked to 100 people to win points for their team. The answers are seen on a huge survey board.</p>
             
-            <table class="score-table table table-striped">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col">Team 1</th>
-                    <th scope="col">Team 2</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>score</td>
-                    <td>score</td>
-                  </tr>
-                  <tr>
-                    <td>score</td>
-                    <td>score</td>
-                  </tr>
-                  <tr>
-                    <td>score</td>
-                    <td>score</td>
-                  </tr>
-                </tbody>
-              </table>
+            <!-- Start Game Button -->
+            <button id="start-game" class="btn btn-primary my-4" onclick="startGame()">Start Game</button>
+
+            <!-- Game Container -->
+            <div id="game-container" style="display: none;">
+                <h2>Question</h2>
+
+                <!-- Answer List -->
+                <ul id="answer-list" class="list-unstyled my-4">
+                    <li class="answer"></li>
+                    <li class="answer"></li>
+                    <li class="answer"></li>
+                    <li class="answer"></li>
+                </ul>
+
+                <!-- Answer Form -->
+                <form id="answer-form" class="mb-4">
+                    <input type="text" name="userAnswer" class="form-control" placeholder="Type your answer">
+                    <input type="submit" value="Submit" class="btn btn-primary mt-3">
+                </form>
+
+                <!-- Team Score Table -->
+                <table class="score-table table table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Team 1</th>
+                        <th scope="col">Team 2</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>0</td> <!-- Team 1 Score -->
+                        <td>0</td> <!-- Team 2 Score -->
+                      </tr>
+                    </tbody>
+                </table>
+
+                <!-- Pass or Play Controls -->
+                <div class="team-controls" style="display: none;">
+                    <button id="passBtn" class="btn btn-warning">Pass</button>
+                    <button id="playBtn" class="btn btn-success">Play</button>
+                </div>
+
+                <!-- Results -->
+                <div id="results"></div>
+            </div>
+
+            <!-- Countdown Timer -->
+            <div id="countdown-timer" hidden>30</div>
         </div>
-        <button id="start-game" class="btn btn-primary" onclick="startCountDown(500)">Start Game</button>
-    
-        <div id="results"></div>
-        <audio src=""></audio>
-    
-        <div class="team-controls">
-            <button id="passBtn">Pass</button>
-            <button id="playBtn">Play</button>
-        </div>
-    
-        <form action="">
-            <label for="name">Name:</label>
-            <input type="text" name="name">
-    
-        </form>
-        <img src="" alt="Family Feud-style Buzzer">
-        <div id="countdown-timer" hidden> Countdown</div>
-        <progress value="30" max="100"></progress>
-    </div>
-        
     </section>
 
-    <footer>
-        <h3>Game Over!</h3>
+    <footer class="text-center my-4">
+      <h3>Game Over!</h3>
     </footer>
     
    
