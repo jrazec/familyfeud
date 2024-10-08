@@ -30,7 +30,7 @@ include("data/query.php");
                         <a class="nav-link active" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Rules</a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#rulesModal">Rules</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" id="pop-up-leaderboard">Leaderboard</a>
@@ -144,6 +144,93 @@ include("data/query.php");
       </table>
     </div>
 
+    <!-- Rules Modal -->
+    <div class="modal fade" id="rulesModal" tabindex="-1" aria-labelledby="rulesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="rulesModalLabel">Family Feud Game Rules</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Overview</h3>
+                            <p>Family Feud is an exciting team-based game where two families compete to guess the most popular answers to survey questions. The game is played in rounds, and the family with the highest score at the end wins!</p>
+
+                            <h3>Game Setup</h3>
+                            <ol>
+                                <li><strong>Teams</strong>: The game consists of two families, each with five members. Players can choose their family roles or teams before starting.</li>
+                                <li><strong>Game Board</strong>: A virtual game board displays the questions and answers as they are revealed. Each question has multiple potential answers based on survey responses.</li>
+                            </ol>
+
+                            <h3>Game Flow</h3>
+                            <ol>
+                                <li><strong>Starting the Game</strong>: 
+                                    <ul>
+                                        <li>Click the <strong>"Start Game"</strong> button to begin. A random survey question will be displayed on the screen.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Asking Questions</strong>: 
+                                    <ul>
+                                        <li>The host reads a survey question (e.g., “Name something you associate with the beach”).</li>
+                                        <li>Each family takes turns providing answers to the question.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Answering</strong>: 
+                                    <ul>
+                                        <li>Players can type their answers into the provided input box and hit the <strong>"Submit"</strong> button.</li>
+                                        <li>If the answer is correct (i.e., it appears on the board), it will be revealed along with the number of points associated with it.</li>
+                                        <li>If the answer is incorrect (not on the board), the other family gets a chance to answer.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Scoring</strong>: 
+                                    <ul>
+                                        <li>Teams earn points for every correct answer they provide, based on how many survey respondents gave that answer.</li>
+                                        <li>The current scores for both teams are displayed on the scoreboard.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Pass or Play</strong>: 
+                                    <ul>
+                                        <li>After each turn, the team can choose to <strong>"Pass"</strong> (give the other team a chance to answer) or <strong>"Play"</strong> (continue answering).</li>
+                                        <li>If a team chooses to play, they keep answering until they either provide three incorrect answers or decide to pass.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Winning the Round</strong>: 
+                                    <ul>
+                                        <li>The round ends when all the answers have been revealed or when one team accumulates enough points.</li>
+                                        <li>The team with the highest score at the end of the round wins.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+
+                            <h3>Game End</h3>
+                            <ul>
+                                <li>Once all rounds are completed, the team with the highest overall score is declared the winner!</li>
+                                <li>A <strong>"Game Over!"</strong> message will display, along with the final scores and any special notes.</li>
+                            </ul>
+
+                            <h3>Additional Features</h3>
+                            <ul>
+                                <li><strong>Countdown Timer</strong>: A timer counts down during each round, adding excitement and urgency.</li>
+                                <li><strong>Results Display</strong>: After each round, the results will be shown, summarizing each team's performance.</li>
+                            </ul>
+
+                            <h3>Tips for Success</h3>
+                            <ul>
+                                <li>Think quickly and creatively! Popular answers might not always be the first that come to mind.</li>
+                                <li>Communication within the team is key—discuss potential answers before submitting.</li>
+                                <li>Keep track of the points and the answers already provided to strategize effectively.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="text-center my-4">
