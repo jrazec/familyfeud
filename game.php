@@ -50,7 +50,7 @@ include("data/query.php");
     <!-- Game Section -->
     <section>
         <div class="container text-center mt-4">
-            <p class="lead">There are two families, each with five family members on their team. They have to guess the answers to a survey question asked to 100 people to win points for their team. The answers are seen on a huge survey board.</p>
+            <p class="lead">Family Feud is a fun, team-based game where two families compete to guess the most popular answers to survey questions posed to 100 people. Each team takes turns answering the question, with points awarded for correct responses displayed on a virtual game board.</p>
 
             <!-- Start Game Button -->
             <button id="start-game" class="btn btn-primary my-4" onclick="startGame()">Start Game</button>
@@ -70,7 +70,7 @@ include("data/query.php");
                 <!-- Answer Form -->
                 <form id="answer-form" class="mb-4">
                     <input type="text" name="userAnswer" class="form-control" placeholder="Type your answer">
-                    <input type="submit" value="Submit" class="btn btn-primary mt-3">
+                    <input type="submit" value="Submit" class="btn btn-primary">
                 </form>
 
                 <!-- Team Score Table -->
