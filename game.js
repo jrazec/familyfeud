@@ -6,7 +6,7 @@ let currentTeam = 1; // Start with Team 1
 let team1AnswerPoints = 0;
 let team2AnswerPoints = 0;
 let answersAttempted = 0; // Track the number of answers attempted in the round
-let interval;
+let interval, lives;
 
 // Sample questions with answers and points
 let questions = [
@@ -223,7 +223,9 @@ function determineHigherScore() {
 
 // Display "Pass or Play" options
 function displayPassOrPlay() {
+    clearInterval(interval);
     document.querySelector('#answer-form').style.display = 'none';
+    document.getElementById('team-answer-form').style.display = 'none';
     document.querySelector('.score-table').style.display = 'none';
     document.querySelector('.team-controls').style.display = 'block';
     document.getElementById('countdown-timer').style.display = 'none';
