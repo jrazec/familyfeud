@@ -2,6 +2,21 @@
 // Include database configuration
 include("data/config_file.php" );
 include("data/query.php");
+
+
+if (isset($_POST)) {
+    $data = file_get_contents("php://input");
+    $data = json_decode($data, true);
+    $teamA = 'Team A';
+    $team1Score = 100;
+    $teamB = 'Team B';
+    $team2Score = 0;
+
+    // Save both teams' scores to the database
+    saveScore($teamA, $team1Score);
+    saveScore($teamB, $team2Score);
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -51,24 +66,60 @@ include("data/query.php");
     <section>
         <div class="container text-center mt-4">
             <p class="lead">Family Feud is a fun, team-based game where two families compete to guess the most popular answers to survey questions posed to 100 people. Each team takes turns answering the question, with points awarded for correct responses displayed on a virtual game board.</p>
-
+            <div id="playerss">
+            <div class="mb-3">
+                    <label for="team1Name" class="form-label">Team 1 Name:</label>
+                    <input type="text" id="team1Name" class="form-control" placeholder="Enter Team 1 name">
+                </div>
+                <div class="mb-3">
+                    <label for="team2Name" class="form-label">Team 2 Name:</label>
+                    <input type="text" id="team2Name" class="form-control" placeholder="Enter Team 2 name">
+                </div>
+            </div>
             <!-- Start Game Button -->
             <button id="start-game" class="btn btn-primary my-4" onclick="startGame()">Start Game</button>
+
 
             <!-- Game Container -->
             <div id="game-container" style="display: none;">
 
                 <!-- Countdown Timer -->
                 <div id="countdown-timer" hidden>30</div>
-                <h2>Question</h2>
+
                 
-                <!-- Answer List -->
-                <ul id="answer-list" class="list-unstyled my-4">
-                    <li class="answer list-group-item"></li>
-                    <li class="answer list-group-item"></li>
-                    <li class="answer list-group-item"></li>
-                    <li class="answer list-group-item"></li>
-                </ul>
+   <!-- Modified question container --> 
+   <div class="container my-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title text-center">Question</h2>
+                        </div>
+                    </div>
+                </div>
+
+               <!-- Answer List -->
+                <div id="answer-board" style="display: none;">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h3 class="card-title">Answer Board</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul id="answer-list" class="list-group">
+                                <!-- Answers will be populated here -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buzzer -->
+                <div id="buzzer-section" style="text-align: center; margin-bottom: 20px;">
+                    <button class="btn btn-danger" id="buzzer">Press the Buzzer</button>
+                </div>
+
+                <div id="team-select" style="display: none; text-align: center;">
+                    <h3>Which Team Buzzed?</h3>
+                    <button class="btn btn-primary" id="team1-buzzer">Team 1</button>
+                    <button class="btn btn-success" id="team2-buzzer">Team 2</button>
+                </div>
 
                 <!-- Answer Form -->
                 <form id="answer-form" class="mb-4">
