@@ -144,6 +144,21 @@ include("data/query.php");
       </table>
     </div>
 
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="alertModalLabel">Family Feud Game Rules</h5>
+                </div>
+                <div class="modal-body" id="alertModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Rules Modal -->
     <div class="modal fade" id="rulesModal" tabindex="-1" aria-labelledby="rulesModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">

@@ -1,5 +1,5 @@
 // Variables to manage the game state
-let currentRound = 0;
+
 let team1Score = 0;
 let team2Score = 0;
 let currentTeam = 1; // Start with Team 1
@@ -9,6 +9,7 @@ let answersAttempted = 0; // Track the number of answers attempted in the round
 let interval;
 let lives = 3;
 let guessedAnswers = [];
+
 // Sample questions with answers and points
 let questions = [
     {
@@ -30,9 +31,29 @@ let questions = [
             "bmw": 15, 
             "mercedes": 10
         }
+    },
+    {
+        question: "Name something you can see in school",
+        answers: {
+            "pencil": 40, 
+            "pen": 30, 
+            "notebook": 20, 
+            "lunchbox": 15, 
+            "teacher": 10
+        }
+    },
+    {
+        question: "Name a pet",
+        answers: {
+            "dog": 40, 
+            "cat": 30, 
+            "butiki": 20, 
+            "dino": 15, 
+            "laol": 10
+        }
     }
 ];
-
+let currentRound =  Math.round(Math.random() * questions.length);
 // Start the game logic
 function startGame() {
     document.querySelector('#game-container').style.display = 'block';
@@ -166,7 +187,7 @@ function stealTeam() {
 
 // Resetting for next round or continue
 function resetForNextRound() {
-    currentRound++;
+
     answersAttempted = 0;
     guessedAnswers = [];
     if (currentRound < questions.length) {
@@ -189,7 +210,7 @@ function checkAnswer(userAnswer) {
 
     let currentAnswers = questions[currentRound].answers;
 
-    if (userAnswer in currentAnswers) {
+    if (userAnswer.toLowerCase() in currentAnswers) {
         let points = currentAnswers[userAnswer];
         alert(`Correct answer! You've earned ${points} points.`);
 
@@ -253,9 +274,7 @@ function determineHigherScore() {
 
 // Display "Pass or Play" options
 function displayPassOrPlay() {
-    clearInterval(interval);
     document.querySelector('#answer-form').style.display = 'none';
-    document.getElementById('team-answer-form').style.display = 'none';
     document.querySelector('.score-table').style.display = 'none';
     document.querySelector('.team-controls').style.display = 'block';
     document.getElementById('countdown-timer').style.display = 'none';
@@ -291,7 +310,6 @@ function playRound() {
 
 // Resetting for next round or continue
 function resetForNextRound() {
-    currentRound++;
     answersAttempted = 0;
     team1AnswerPoints = 0;
     team2AnswerPoints = 0;
@@ -323,7 +341,6 @@ document.querySelector('#pop-up-leaderboard').addEventListener('click',()=>{
 })
 
 function startRound() {
-    currentRound = Math.round(Math.random() * questions.length);
     document.querySelector('#answer-form').style.display = 'block';
     document.querySelector('#game-container h2').textContent = `${questions[currentRound].question}`;
     
