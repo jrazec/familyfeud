@@ -7,7 +7,8 @@ let team1AnswerPoints = 0;
 let team2AnswerPoints = 0;
 let answersAttempted = 0; // Track the number of answers attempted in the round
 let interval;
-
+let lives = 3;
+let guessedAnswers = [];
 // Sample questions with answers and points
 let questions = [
     {
@@ -50,8 +51,11 @@ function loadQuestion() {
 
 function startTimer() {
     let countdown = 11;
+    clearInterval(interval)
     const timer = document.getElementById('countdown-timer');
     timer.hidden = false;
+    timer.style.display = "block";
+    timer.style.visibility = "visible";
     timer.textContent = countdown;
 
     interval = setInterval(() => {
@@ -70,27 +74,34 @@ function startTimer() {
 document.getElementById('answer-form').addEventListener('submit', function (event) {
     event.preventDefault();
     let userAnswer = document.querySelector('[name="userAnswer"]').value.toLowerCase();
+    guessedAnswers.push(guessedAnswers)
     checkAnswer(userAnswer);
 });
 
-// Handle the form submission to check the answer
 document.getElementById('team-answer-form').addEventListener('submit', function (event) {
     event.preventDefault();
-    let userAnswer = document.querySelector('[name="teamUserAnswer"]').value.toLowerCase();
+});
+// Handle the form submission to check the answer
+document.getElementById('btnTeam').addEventListener('click', function (event) {
+    let userAnswer = document.querySelector('[name="team-userAnswer"]').value.toLowerCase();
     checkTeamAnswer(userAnswer);
 });
 
+let correct = 0;
 // Check if the submitted answer is correct
 function checkTeamAnswer(userAnswer) {
     clearInterval(interval);
-
     let currentAnswers = questions[currentRound].answers;
+    
+    if(correct === Object.keys(questions[currentRound].answers).length){
+        endGame()
+    }
 
-    if (userAnswer in currentAnswers) {
+    if (userAnswer in currentAnswers && !guessedAnswers.includes(userAnswer)) {
         let points = currentAnswers[userAnswer];
         alert(`Correct answer! You've earned ${points} points.`);
         guessedAnswers.push(userAnswer); // Add correct answer to guessed list
-
+        correct++;
         // Update team score
         if (currentTeam === 1) {
             updateScore(1, points);
@@ -112,7 +123,7 @@ function checkTeamAnswer(userAnswer) {
     } else {
         startTimer(); // Restart timer for next answer
     }
-
+    document.getElementById('countdown-timer').style.visibility = "visible";
     document.querySelector('[name="userAnswer"]').value = ''; // Reset the input field
 }
 
@@ -132,8 +143,25 @@ function stealTeam() {
     currentTeam = currentTeam === 1 ? 2 : 1;
     lives = 3; // Reset lives for the new team
     alert(`It's now Team ${currentTeam}'s chance to steal!`);
-    guessedAnswers = []; // Reset guessed answers
-    loadQuestion();
+    let currentAnswers = questions[currentRound].answers;
+
+    document.querySelector('#btnTeam').addEventListener('click',()=>{
+        let teamUserAnswer = document.querySelector('[name="team-userAnswer"]').value.toLowerCase();
+        if(teamUserAnswer in currentAnswers) {
+            if (currentTeam === 1) {
+                team1Score += team2Score;
+                alert(`You now got their points! Your team has ${team1Score}pts`)
+                document.querySelector('.score-table tbody tr:nth-child(1) td:nth-child(1)').textContent = team1Score;
+            } else {
+                alert(`You now got their points! Your team has ${team2Score}pts`)
+                team2Score += team1Score;
+                document.querySelector('.score-table tbody tr:nth-child(1) td:nth-child(2)').textContent = team2Score;
+            }
+        }else {
+            alert('You fail to steal :<')
+        }
+    })
+    
 }
 
 // Resetting for next round or continue
@@ -181,12 +209,14 @@ function checkAnswer(userAnswer) {
     answersAttempted++;
     if (answersAttempted === 2) {
         determineHigherScore();
+        startTimer();
     } else {
         switchTeam();
+        startTimer();
     }
 
     document.querySelector('[name="userAnswer"]').value = ''; // Reset the input field
-    startTimer();
+    
 }
 
 // Update the team's score
@@ -231,13 +261,19 @@ function displayPassOrPlay() {
     document.getElementById('passBtn').addEventListener('click', function () {
         currentTeam = currentTeam === 1 ? 2 : 1; // Switch to the other team
         alert(`Team ${currentTeam} will play!`);
+        document.querySelector('#team-answer-form').style.visibility = "visible";
+        document.querySelector('#answer-form').style.visibility = "hidden";
         document.querySelector('.team-controls').style.display = 'none';
+        startTimer();
         startRound();
     });
 
     document.getElementById('playBtn').addEventListener('click', function () {
         alert(`Team ${currentTeam} has chosen to play!`);
+        document.querySelector('#team-answer-form').style.visibility = "visible";
+        document.querySelector('#answer-form').style.visibility = "hidden";
         document.querySelector('.team-controls').style.display = 'none';
+        startTimer();
         startRound();
     });
 }

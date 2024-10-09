@@ -54,3 +54,7 @@
     left: 6%;
     visibility: hidden;
 }
+
+#team-answer-form {
+    visibility: hidden;
+}

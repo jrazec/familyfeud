@@ -79,7 +79,7 @@ include("data/query.php");
                 <!-- Team Answer Form -->
                 <form id="team-answer-form" class="mb-4">
                     <input type="text" name="team-userAnswer" class="form-control" placeholder="Type your answer">
-                    <input type="submit" value="team-submit" class="btn btn-secondary">
+                    <button id="btnTeam" class="btn btn-secondary">Submit</button>
                 </form>
 
                 <!-- Team Score Table -->
