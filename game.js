@@ -253,7 +253,9 @@ function determineHigherScore() {
 
 // Display "Pass or Play" options
 function displayPassOrPlay() {
+    clearInterval(interval);
     document.querySelector('#answer-form').style.display = 'none';
+    document.getElementById('team-answer-form').style.display = 'none';
     document.querySelector('.score-table').style.display = 'none';
     document.querySelector('.team-controls').style.display = 'block';
     document.getElementById('countdown-timer').style.display = 'none';
